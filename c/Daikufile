@@ -1,0 +1,15 @@
+task 'default' => 'hello';
+
+file 'hello' => 'hello.o' => sub {
+    my $file = shift;
+    sh sprintf('gcc -o %s %s', $file->dst, $file->deps->[0]);
+};
+
+rule '.o' => '.c' => sub {
+    my ($rule, $dst, @srcs) = @_;
+    sh sprintf('gcc -o %s -c %s', $dst, $srcs[0]);
+};
+
+task 'clean' => sub {
+    unlink $_ for ('hello', 'hello.o');
+};
