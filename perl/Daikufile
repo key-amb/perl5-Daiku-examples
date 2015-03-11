@@ -4,10 +4,10 @@ task 'install' => sub {
     sh 'cpanm --installdeps .';
 };
 
-task 'run' => sub {
+task 'run' => ['install', 'test'] => sub {
     sh 'perl -Ilib script/foo.pl';
 };
 
-task 'test' => sub {
+task 'test' => 'install' => sub {
     sh 'prove -Ilib -rv t/';
 };
