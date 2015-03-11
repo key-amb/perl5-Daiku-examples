@@ -1,0 +1,5 @@
+task 'default' => 'run';
+
+task 'run' => sub {
+    sh 'perl -Ilib script/foo.pl';
+};
