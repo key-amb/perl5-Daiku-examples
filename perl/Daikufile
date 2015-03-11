@@ -1,5 +1,9 @@
 task 'default' => 'run';
 
+task 'install' => sub {
+    sh 'cpanm --installdeps .';
+};
+
 task 'run' => sub {
     sh 'perl -Ilib script/foo.pl';
 };
