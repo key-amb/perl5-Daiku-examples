@@ -7,3 +7,7 @@ task 'install' => sub {
 task 'run' => sub {
     sh 'perl -Ilib script/foo.pl';
 };
+
+task 'test' => sub {
+    sh 'prove -Ilib -rv t/';
+};
