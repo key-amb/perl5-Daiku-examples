@@ -1,3 +1,4 @@
+desc 'hello';
 task default => sub {
     sh "echo 'Hello, world!'";
 };
