@@ -1,5 +1,7 @@
+desc 'run foo.pl';
 task 'default' => 'run';
 
+desc 'install necessary modules';
 task 'install' => sub {
     sh 'cpanm --installdeps .';
 };
@@ -8,6 +10,7 @@ task 'run' => ['install', 'test'] => sub {
     sh 'perl -Ilib script/foo.pl';
 };
 
+desc 'run test';
 task 'test' => 'install' => sub {
     sh 'prove -Ilib -rv t/';
 };
