@@ -1,3 +1,4 @@
+desc 'build hello binary';
 task 'default' => 'hello';
 
 file 'hello' => 'hello.o' => sub {
@@ -10,6 +11,7 @@ rule '.o' => '.c' => sub {
     sh sprintf('gcc -o %s -c %s', $dst, $srcs[0]);
 };
 
+desc 'clean up';
 task 'clean' => sub {
     unlink $_ for ('hello', 'hello.o');
 };
