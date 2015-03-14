@@ -6,7 +6,7 @@ task 'install' => sub {
     sh 'cpanm --installdeps .';
 };
 
-task 'run' => ['install', 'test'] => sub {
+task 'run' => 'test' => sub {
     sh 'perl -Ilib script/foo.pl';
 };
 
