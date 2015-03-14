@@ -1,3 +1,6 @@
+use File::Basename qw(dirname);
+use File::Path qw(make_path);
+
 desc 'run foo.pl';
 task 'default' => 'run';
 
@@ -13,4 +16,19 @@ task 'run' => 'test' => sub {
 desc 'run test';
 task 'test' => 'install' => sub {
     sh 'prove -Ilib -rv t/';
+};
+
+desc 'build html docs';
+task 'html' => sub {
+    my @srcs = (
+        qx(find script -type f),
+        qx(find lib -type f -name '*.pm'),
+    );
+    chomp @srcs;
+    for my $src (@srcs) {
+        my $html = "docs/$src.html";
+        my $dir  = dirname $html;
+        make_path($dir);
+        sh sprintf('pod2html --infile %s --outfile %s', $src, $html);
+    }
 };
